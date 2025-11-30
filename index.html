@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="caidat.css">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="icon" href="logo.png" type="image/png">
+
+<style>
+    
+</style>
+</head>
+
+<body>
+
+
+    <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li class="active"><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Trang chủ , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+            <!-- PHẦN RIÊNG -->
+            <div class="dashboard-content">
+                <div class="cards-grid">
+                    <!-- Nhân viên -->
+                    <div class="card" id="card-employees">
+                        <div class="card-icon bg-blue"><i class="fas fa-user-friends"></i></div>
+                        <div class="card-content">
+                            <h3>Nhân viên</h3>
+                            <p data-employee-count>0</p> <!-- ĐỔI THÀNH data-employee-count -->
+                            <span class="status active">Hoạt động: <span id="active-employees-dash">0</span></span>
+                            <span class="status inactive">Không hoạt động: <span
+                                    id="inactive-employees-dash">0</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Dự án -->
+                    <div class="card" id="card-projects">
+                        <div class="card-icon bg-dark-blue"><i class="fas fa-folder-open"></i></div>
+                        <div class="card-content">
+                            <h3>Tổng số dự án</h3>
+                            <p id="total-projects">0</p>
+                            <span>Đang tiến hành: <span id="ongoing-projects">0</span></span>
+                            <span>Đã hoàn tất: <span id="completed-projects">0</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Công việc -->
+                    <div class="card" id="card-tasks">
+                        <div class="card-icon bg-pink"><i class="fas fa-tasks"></i></div>
+                        <div class="card-content">
+                            <h3>Công việc</h3>
+                            <p id="total-tasks">0</p>
+                            <span>Đang tiến hành: <span id="ongoing-tasks">0</span></span>
+                            <span>Đã hoàn tất: <span id="completed-tasks">0</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Phòng ban -->
+                    <div class="card" id="card-departments">
+                        <div class="card-icon bg-green"><i class="fas fa-building"></i></div>
+                        <div class="card-content">
+                            <h3>Phòng ban</h3>
+                            <p id="department-count">0</p>
+                            <span>Xem chi tiết</span>
+                        </div>
+                    </div>
+
+                    <!-- Lương thưởng -->
+                    <div class="card" id="card-salary">
+                        <div class="card-icon bg-orange"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="card-content">
+                            <h3>Lương thưởng</h3>
+                            <p id="salary-status">Cập nhật</p>
+                            <span>Xem bảng lương</span>
+                        </div>
+                    </div>
+
+                    <!-- Thông báo -->
+                    <div class="card" id="card-notifications">
+                        <div class="card-icon bg-red"><i class="fas fa-bell"></i></div>
+                        <div class="card-content">
+                            <h3>Thông báo</h3>
+                            <p id="notify-count">0</p>
+                            <span>Xem thông báo</span>
+                        </div>
+                    </div>
+
+                    <!-- Hồ sơ cá nhân -->
+                    <div class="card" id="card-profile">
+                        <div class="card-icon bg-purple"><i class="fas fa-id-card"></i></div>
+                        <div class="card-content">
+                            <h3>Hồ sơ cá nhân</h3>
+                            <p id="profile-status">Đang cập nhật</p>
+                            <span>Xem chi tiết</span>
+                        </div>
+                    </div>
+
+                    <!-- Khách hàng -->
+                    <div class="card" id="card-customers">
+                        <div class="card-icon bg-teal"><i class="fas fa-user-tie"></i></div>
+                        <div class="card-content">
+                            <h3>Khách hàng</h3>
+                            <p id="customer-count">0</p>
+                            <span>Đang hoạt động</span>
+                        </div>
+                    </div>
+
+                    <!-- Hợp đồng -->
+                    <div class="card" id="card-contracts">
+                        <div class="card-icon bg-yellow"><i class="fas fa-file-contract"></i></div>
+                        <div class="card-content">
+                            <h3>Hợp đồng</h3>
+                            <p id="contract-count">0</p>
+                            <span>Xem chi tiết</span>
+                        </div>
+                    </div>
+
+                    <!-- Đào tạo -->
+                    <div class="card" id="card-training">
+                        <div class="card-icon bg-dark"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div class="card-content">
+                            <h3>Đào tạo</h3>
+                            <p id="training-sessions">0</p>
+                            <span>Khóa học sắp tới</span>
+                        </div>
+                    </div>
+
+                    <!-- Lịch làm việc -->
+                    <div class="card" id="card-schedule">
+                        <div class="card-icon bg-cyan"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="card-content">
+                            <h3>Lịch làm việc</h3>
+                            <p id="work-schedule">Cập nhật</p>
+                            <span>Xem chi tiết</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Phần 2 -->
+
+                <div class="analytics-section">
+                    <h3>📊 Phân tích Biến động Nhân sự (Tháng này)</h3>
+                    <div class="kpi-grid">
+                        <div class="kpi-card bg-kpi-blue">
+                            <div style="display:flex;align-items:center;justify-content:space-between;">
+                                <div style="display:flex;align-items:center;gap:12px">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <h4>Tỷ lệ Nghỉ việc (Turnover)</h4>
+                                </div>
+                                <div class="goal-badge">Mục tiêu: <strong style="margin-left:6px;color:#0b66ff">Dưới
+                                        5%</strong></div>
+                            </div>
+                            <p id="turnover-rate">0.0%</p>
+                            <span>So sánh tháng trước: <strong id="turnover-diff">+0.0%</strong></span>
+                        </div>
+
+                        <div class="kpi-card bg-kpi-green">
+                            <div style="display:flex;align-items:center;gap:12px">
+                                <i class="fas fa-user-plus"></i>
+                                <h4>Số nhân viên Tuyển mới</h4>
+                            </div>
+                          <p data-employee-count>0</p> <!-- ĐỔI THÀNH data-employee-count -->
+                            <span>Tổng số ứng viên: <strong id="total-candidates">0</strong></span>
+                        </div>
+
+                        <div class="kpi-card bg-kpi-orange">
+                            <div style="display:flex;align-items:center;gap:12px">
+                                <i class="fas fa-dollar-sign"></i>
+                                <h4>Chi phí Tuyển dụng / người</h4>
+                            </div>
+                            <p id="cost-per-hire">0 VNĐ</p>
+                            <span>Đang theo dõi: <span id="cph-status">3 dự án</span></span>
+                        </div>
+
+                        <div class="kpi-card bg-kpi-red">
+                            <div style="display:flex;align-items:center;gap:12px">
+                                <i class="fas fa-book-reader"></i>
+                                <h4>Hoàn thành Đào tạo</h4>
+                            </div>
+
+                            <div id="training-completion">
+                                <span id="training-percent">0%</span>
+                                <div class="progress-wrap">
+                                    <div class="progress-bar" aria-hidden="true">
+                                        <span id="training-bar"></span>
+                                    </div>
+                                    <span style="min-width:44px;text-align:right;color:var(--muted);font-size:12px">
+                                        <span id="ongoing-courses">0</span> khóa
+                                    </span>
+                                </div>
+                            </div>
+
+                            <span>Khóa học đang diễn ra: <strong id="ongoing-courses-2">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------ -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Các thư viện JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
+    <!-- THÊM CÁC THƯ VIỆN CÒN THIẾU -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+    <!-- <script src="nhansu.js"></script> -->
+     <script src="caidat.js"></script>
+    <script src="qlns.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy tên file hiện tại (vd: nhansu.html)
+            const currentPage = window.location.pathname.split("/").pop();
+            const menuLinks = document.querySelectorAll(".sidebar-nav li a");
+
+            menuLinks.forEach(link => {
+                const parentLi = link.parentElement;
+                parentLi.classList.remove("active"); // Xóa hết active cũ
+
+                // Nếu href trùng với tên file hiện tại thì đánh sáng
+                if (link.getAttribute("href") === currentPage) {
+                    parentLi.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>
