@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-users-cog"></i>
+                <span>QUẢN LÝ NHÂN SỰ</span>
+            </div>
+
+            <div class="login-header">
+                <h2>Đăng nhập hệ thống</h2>
+                <p>Vui lòng đăng nhập để tiếp tục</p>
+            </div>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        Tên đăng nhập hoặc Email
+                    </label>
+                    <input type="text" id="username" name="username" required placeholder="Nhập username hoặc email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Mật khẩu
+                    </label>
+                    <input type="password" id="password" name="password" required placeholder="Nhập mật khẩu">
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Đăng nhập
+                </button>
+            </form>
+
+            <div class="login-divider">
+                <span>Hoặc</span>
+            </div>
+
+          <!-- Google Sign-in Container -->
+<div id="g_id_onload"
+     data-client_id="127882287021-5qhvn26j2so65luq11f1iget9b5uv4f0.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="handleGoogleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left"
+     data-width="300">
+</div>
+
+            <div class="register-link">
+                <p>Chưa có tài khoản? <a href="register.html" id="show-register">Đăng ký ngay</a></p>
+            </div>
+            <div class="login-footer">
+                <p><strong>Tài khoản nội bộ:</strong></p>
+                <p>• Quản trị: admin / password</p>
+                <p>• Nhân viên: nhanvien1 / password</p>
+                <p class="privacy-text">Bằng việc đăng nhập, bạn đồng ý với <a href="#">Điều khoản sử dụng</a> và <a
+                        href="#">Chính sách bảo mật</a></p>
+            </div>
+        </div>
+
+        <div class="login-background">
+            <div class="background-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <div class="welcome-message">
+                <h1>Chào mừng đến với HR System</h1>
+                <p>Hệ thống quản lý nhân sự toàn diện và chuyên nghiệp</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <span>Quản lý nhân sự</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Theo dõi hiệu suất</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Chấm công thông minh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Biến toàn cục cho API base URL - THAY ĐỔI THEO CẤU HÌNH CỦA BẠN
+        const API_BASE_URL = 'http://localhost/unitop-php';
+        // LƯU Ý: Nếu URL API của bạn là http://localhost/qlns/api, hãy sửa lại thành:
+        // const API_BASE_URL = 'http://localhost/qlns/api';
+    </script>
+    <script src="login.js"></script>
+</body>
+
+</html>
