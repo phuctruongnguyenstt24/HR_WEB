@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="caidat.css">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="nhansu.css">
+</head>
+
+<body>
+
+    <!-- Phần CHUNG -->
+    <!-- Dashboard -->
+    <div id="dashboard" class="container" style="display:none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar"  alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+          
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li class="active"><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân
+                                sự</span></a></li>
+                    <li ><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a>
+                    </li>
+                    <li ><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm
+                                công</span></a></li>
+                    <li ><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu
+                                suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch
+                                HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển
+                                dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự
+                                án</span></a>
+                    </li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài
+                                chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Nhân sự, <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+
+
+            <!-- Phần RIÊNG -->
+            <!-- Phần dashboard-content riêng cho trang nhân sự -->
+            <div class="dashboard-content">
+                <!-- Thanh công cụ -->
+
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="employee-search" placeholder="Tìm kiếm nhân viên...">
+                    </div>
+                    <div class="actions">
+                        <button id="add-employee-btn" class="btn-primary">
+                            <i class="fas fa-plus"></i> Thêm nhân viên
+                        </button>
+                        <button id="filter-btn" class="btn-secondary">
+                            <i class="fas fa-filter"></i> Lọc
+                        </button>
+                        <div class="dropdown">
+                            <button id="export-btn" class="btn-secondary">
+                                <i class="fas fa-download"></i> Xuất file <i class="fas fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="#" id="export-excel">Xuất Excel</a>
+                                <a href="#" id="export-csv">Xuất CSV</a>
+                                <a href="#" id="export-pdf">Xuất PDF</a>
+                            </div>
+                        </div>
+                    </div>
+
+                     
+                </div>
+
+                <!-- Thêm modal lọc nhân viên -->
+                <div id="filter-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Lọc nhân viên</h3>
+                            <span class="close-btn">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="filter-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="filter-department">Phòng ban</label>
+                                        <select id="filter-department">
+                                            <option value="">Tất cả phòng ban</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Nhân sự">Nhân sự</option>
+                                            <option value="Kinh doanh">Kinh doanh</option>
+                                            <option value="Marketing">Marketing</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="filter-position">Chức vụ</label>
+                                        <select id="filter-position">
+                                            <option value="">Tất cả chức vụ</option>
+                                            <option value="Nhân viên">Nhân viên</option>
+                                            <option value="Trưởng nhóm">Trưởng nhóm</option>
+                                            <option value="Trưởng phòng">Trưởng phòng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="filter-status">Trạng thái</label>
+                                        <select id="filter-status">
+                                            <option value="">Tất cả trạng thái</option>
+                                            <option value="active">Đang làm việc</option>
+                                            <option value="probation">Thử việc</option>
+                                            <option value="inactive">Đã nghỉ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="filter-date">Ngày vào từ</label>
+                                        <input type="date" id="filter-date">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" id="reset-filter" class="btn-cancel">Đặt lại</button>
+                                    <button type="submit" class="btn-submit">Áp dụng lọc</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thống kê nhanh -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                       <!-- đồng bộ -->
+                        <div class="stat-info">
+                            <h4>Tổng nhân viên</h4>
+                            <p data-employee-count>0</p>
+                        </div>
+                      <!-- đồng bộ -->
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-green">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Đang làm việc</h4>
+                            <p id="active-employees">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-orange">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Thử việc</h4>
+                            <p id="probation-employees">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-red">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Đã nghỉ việc</h4>
+                            <p id="inactive-employees">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bảng nhân viên -->
+                <div class="table-responsive">
+                    <table id="employee-table">
+                        <thead>
+                            <tr>
+                                <th>Mã NV</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Phòng ban</th>
+                                <th>Chức vụ</th>
+                                <th>Ngày vào</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-table-body">
+                            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Phân trang -->
+                <div class="pagination">
+                    <button id="prev-page" class="page-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div id="page-numbers" class="page-numbers">
+                        <!-- Số trang sẽ được thêm bằng JavaScript -->
+                    </div>
+                    <button id="next-page" class="page-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thêm/Sửa Nhân Viên -->
+    <div id="employee-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Thêm nhân viên mới</h3>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="employee-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emp-code">Mã nhân viên *</label>
+                            <input type="text" id="emp-code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emp-name">Họ tên *</label>
+                            <input type="text" id="emp-name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emp-email">Email *</label>
+                        <input type="email" id="emp-email" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emp-department">Phòng ban *</label>
+                            <select id="emp-department" required>
+                                <option value="">Chọn phòng ban</option>
+                                <option value="IT">IT</option>
+                                <option value="Nhân sự">Nhân sự</option>
+                                <option value="Kinh doanh">Kinh doanh</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Kế toán">Kế toán</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="emp-position">Chức vụ *</label>
+                            <select id="emp-position" required>
+                                <option value="">Chọn chức vụ</option>
+                                <option value="Nhân viên">Nhân viên</option>
+                                <option value="Trưởng nhóm">Trưởng nhóm</option>
+                                <option value="Trưởng phòng">Trưởng phòng</option>
+                                <option value="Phó phòng">Phó phòng</option>
+                                <option value="Giám đốc">Giám đốc</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emp-start-date">Ngày vào *</label>
+                            <input type="date" id="emp-start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emp-status">Trạng thái *</label>
+                            <select id="emp-status" required>
+                                <option value="active">Đang làm việc</option>
+                                <option value="probation">Thử việc</option>
+                                <option value="inactive">Đã nghỉ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancel-btn" class="btn-cancel">Hủy bỏ</button>
+                        <button type="submit" id="save-btn" class="btn-submit">Lưu thông tin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+     <script src="caidat.js"></script>
+    <script src="qlns.js"></script>
+    <!-- <script src="common.js"></script> -->
+  <script type="module" src="nhansu.js"></script>
+  <script>
+// Kiểm tra phân quyền khi vào trang
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const currentPage = window.location.pathname.split("/").pop();
+    
+    // Nếu là nhân viên và không phải trang chấm công
+    if (currentUser.role === 'employee' && currentPage !== 'chamcong.html') {
+        // Hiển thị thông báo nhưng vẫn cho phép sử dụng
+        console.log('Nhân viên truy cập trang:', currentPage);
+        // Có thể thêm thông báo nhẹ nếu cần
+    }
+    
+    // Cập nhật thông tin user
+    updatePageUserInfo();
+});
+
+function updatePageUserInfo() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    
+    // Cập nhật avatar
+    const avatars = document.querySelectorAll('.user-avatar img, #user-avatar');
+    avatars.forEach(avatar => {
+        if (currentUser.avatar_url) {
+            avatar.src = currentUser.avatar_url;
+        } else if (currentUser.picture) {
+            avatar.src = currentUser.picture;
+        }
+        avatar.alt = currentUser.full_name || currentUser.name || 'User';
+    });
+    
+    // Cập nhật tên
+    const usernames = document.querySelectorAll('.user-name, #username');
+    usernames.forEach(element => {
+        element.textContent = currentUser.full_name || currentUser.name || 'User';
+    });
+}
+</script>
+
+</body>
+
+</html>
