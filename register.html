@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="register.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-users-cog"></i>
+                <span>QUẢN LÝ NHÂN SỰ</span>
+            </div>
+            
+            <div class="login-header">
+                <h2>Đăng ký tài khoản</h2>
+                <p>Tạo tài khoản mới để sử dụng hệ thống</p>
+            </div>
+
+            <form id="register-form" class="login-form">
+                <div class="form-group">
+                    <label for="full_name">
+                        <i class="fas fa-user"></i>
+                        Họ và tên
+                    </label>
+                    <input type="text" id="full_name" name="full_name" required placeholder="Nhập họ và tên đầy đủ">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" id="email" name="email" required placeholder="Nhập địa chỉ email">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg_username">
+                        <i class="fas fa-user-circle"></i>
+                        Tên đăng nhập
+                    </label>
+                    <input type="text" id="reg_username" name="username" required placeholder="Nhập tên đăng nhập">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">
+                        <i class="fas fa-user-tag"></i>
+                        Phân quyền
+                    </label>
+                    <select id="role" name="role" class="role-select" required>
+                        <option value="">-- Chọn phân quyền --</option>
+                        <option value="employee">Nhân viên</option>
+                        <option value="admin">Quản trị viên</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg_password">
+                        <i class="fas fa-lock"></i>
+                        Mật khẩu
+                    </label>
+                    <input type="password" id="reg_password" name="password" required placeholder="Nhập mật khẩu (ít nhất 6 ký tự)">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">
+                        <i class="fas fa-lock"></i>
+                        Xác nhận mật khẩu
+                    </label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="Nhập lại mật khẩu">
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Đăng ký
+                </button>
+            </form>
+
+            <div class="register-link">
+                <p>Đã có tài khoản? <a href="login.html" id="show-login">Đăng nhập ngay</a></p>
+            </div>
+
+            <div class="login-footer">
+                <p class="privacy-text">Bằng việc đăng ký, bạn đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a></p>
+            </div>
+        </div>
+
+        <div class="login-background">
+            <div class="background-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <div class="welcome-message">
+                <h1>Tham gia hệ thống HR</h1>
+                <p>Tạo tài khoản để truy cập đầy đủ tính năng quản lý nhân sự</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <span>Quản lý nhân sự</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Theo dõi hiệu suất</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Chấm công thông minh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost/unitop-php';
+    </script>
+    <script src="register.js"></script>
+</body>
+</html>
