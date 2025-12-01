@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch HR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="lichhr.css">
+</head>
+<body>
+  <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li ><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li class="active"><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Lịch HR, <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+
+            <!-- Phần riêng -->
+            <div class="dashboard-content">
+                <div class="schedule-header">
+                    <h2>Lịch HR</h2>
+                    <div class="schedule-controls">
+                        <select id="event-filter">
+                            <option value="all">Tất cả sự kiện</option>
+                            <option value="meeting">Cuộc họp</option>
+                            <option value="training">Đào tạo</option>
+                            <option value="interview">Phỏng vấn</option>
+                            <option value="other">Khác</option>
+                        </select>
+                        <button id="add-event-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm sự kiện</button>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+
+                <!-- Modal để thêm/sửa sự kiện -->
+                <div id="event-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h3 id="modal-title">Thêm sự kiện mới</h3>
+                        <div class="form-group">
+                            <label for="event-title">Tiêu đề</label>
+                            <input type="text" id="event-title" placeholder="Nhập tiêu đề sự kiện">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-date">Ngày</label>
+                            <input type="date" id="event-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-time">Thời gian</label>
+                            <input type="time" id="event-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-type">Loại sự kiện</label>
+                            <select id="event-type">
+                                <option value="meeting">Cuộc họp</option>
+                                <option value="training">Đào tạo</option>
+                                <option value="interview">Phỏng vấn</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-description">Mô tả</label>
+                            <textarea id="event-description" placeholder="Nhập mô tả sự kiện"></textarea>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="save-event-btn" class="btn btn-primary">Lưu</button>
+                            <button id="delete-event-btn" class="btn btn-danger" style="display:none;">Xóa</button>
+                            <button id="cancel-event-btn" class="btn btn-secondary">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="qlns.js"></script>
+    <script src="lichhr.js"></script>
+</body>
+</html>

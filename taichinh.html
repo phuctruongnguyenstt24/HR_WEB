@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Chính - Quản Lý Nhân Sự</title>
+    <link rel="icon" href="HR.jpg">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="taichinh.css">
+</head>
+
+<body>
+  <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li class="active"><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Tài chính , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+
+<!-- Phần code riêng cho trang tài chính -->
+
+            <div class="finance-page">
+                <section class="finance-overview">
+                    <div class="overview-card income">
+                        <div class="card-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="card-content">
+                            <h3>Thu nhập</h3>
+                            <span class="amount" id="income-amount">0 ₫</span>
+                            <span class="change positive"><i class="fas fa-arrow-up"></i> 0%</span>
+                        </div>
+                    </div>
+
+                    <div class="overview-card expense">
+                        <div class="card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="card-content">
+                            <h3>Chi phí</h3>
+                            <span class="amount" id="expense-amount">0 ₫</span>
+                            <span class="change negative"><i class="fas fa-arrow-down"></i> 0%</span>
+                        </div>
+                    </div>
+
+                    <div class="overview-card profit">
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="card-content">
+                            <h3>Lợi nhuận</h3>
+                            <span class="amount" id="profit-amount">0 ₫</span>
+                            <span class="change positive"><i class="fas fa-arrow-up"></i> 0%</span>
+                        </div>
+                    </div>
+
+                    <div class="overview-card budget">
+                        <div class="card-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="card-content">
+                            <h3>Ngân sách</h3>
+                            <span class="amount" id="budget-amount">0 ₫</span>
+                            <span class="change">Còn 0%</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="finance-charts">
+                    <div class="chart-container">
+                        <h3>Dòng tiền theo tháng</h3>
+                        <canvas id="cashFlowChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Phân bổ chi phí</h3>
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </section>
+
+                <div class="finance-toolbar">
+                    <div class="toolbar-left">
+                        <button id="add-transaction" class="btn-primary"><i class="fas fa-plus"></i> Giao dịch mới</button>
+                        <button id="create-invoice" class="btn-secondary"><i class="fas fa-file-invoice"></i> Tạo hóa đơn</button>
+                        <button id="generate-report" class="btn-secondary"><i class="fas fa-chart-pie"></i> Báo cáo</button>
+                    </div>
+
+                    <div class="toolbar-right">
+                        <label for="time-filter" class="sr-only">Lọc theo thời gian</label>
+                        <select id="time-filter">
+                            <option value="all">Tất cả thời gian</option>
+                            <option value="week">Tuần này</option>
+                            <option value="month">Tháng này</option>
+                            <option value="quarter">Quý này</option>
+                            <option value="year">Năm nay</option>
+                        </select>
+                        <label for="category-filter" class="sr-only">Lọc theo danh mục</label>
+                        <select id="category-filter">
+                            <option value="all">Tất cả danh mục</option>
+                            <option value="Lương">Lương</option>
+                            <option value="Dự án">Dự án</option>
+                            <option value="Thiết bị">Thiết bị</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Dịch vụ">Dịch vụ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                </div>
+
+                <section class="transactions-section">
+                    <h3>Giao dịch gần đây</h3>
+                    <div class="transactions-list" id="transactions-list-container">
+                        <!-- Giao dịch sẽ được thêm động bằng JavaScript -->
+                    </div>
+                </section>
+
+                <section class="pending-invoices">
+                    <div class="section-header">
+                        <h3>Hóa đơn chờ thanh toán</h3>
+                        <a href="#" class="view-all">Xem tất cả</a>
+                    </div>
+                    <div class="invoices-list">
+                        <article class="invoice-item overdue">
+                            <div class="invoice-info">
+                                <h4>Tiền điện - EVN</h4>
+                                <p>Hạn thanh toán: 15/11/2023</p>
+                            </div>
+                            <div class="invoice-amount">
+                                4,250,000 ₫
+                                <span class="invoice-status overdue">Quá hạn</span>
+                            </div>
+                        </article>
+
+                        <article class="invoice-item due-soon">
+                            <div class="invoice-info">
+                                <h4>Dịch vụ Internet - FPT</h4>
+                                <p>Hạn thanh toán: 25/11/2023</p>
+                            </div>
+                            <div class="invoice-amount">
+                                1,850,000 ₫
+                                <span class="invoice-status due-soon">Sắp đến hạn</span>
+                            </div>
+                        </article>
+
+                        <article class="invoice-item">
+                            <div class="invoice-info">
+                                <h4>Phần mềm bản quyền</h4>
+                                <p>Hạn thanh toán: 05/12/2023</p>
+                            </div>
+                            <div class="invoice-amount">
+                                12,500,000 ₫
+                                <span class="invoice-status">Chưa đến hạn</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="transaction-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-transaction">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title-transaction">Thêm giao dịch mới</h3>
+                <span class="close" aria-label="Đóng">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="transaction-form">
+                    <div class="form-group">
+                        <label>Loại giao dịch</label>
+                        <div class="radio-group" role="radiogroup" aria-labelledby="transaction-type-label">
+                            <input type="radio" id="type-income" name="transaction-type" value="income" checked>
+                            <label for="type-income">Thu nhập</label>
+                            <input type="radio" id="type-expense" name="transaction-type" value="expense">
+                            <label for="type-expense">Chi phí</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-amount">Số tiền (₫)</label>
+                        <input type="number" id="transaction-amount" name="transaction-amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-description">Mô tả</label>
+                        <input type="text" id="transaction-description" name="transaction-description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-category">Danh mục</label>
+                        <select id="transaction-category" name="transaction-category" required>
+                            <option value="">Chọn danh mục</option>
+                            <option value="Lương">Lương</option>
+                            <option value="Dự án">Dự án</option>
+                            <option value="Thiết bị">Thiết bị</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Dịch vụ">Dịch vụ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-date">Ngày</label>
+                        <input type="date" id="transaction-date" name="transaction-date" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Lưu giao dịch</button>
+                        <button type="button" class="btn-secondary" id="cancel-transaction">Hủy bỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="invoice-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-invoice">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title-invoice">Tạo Hóa đơn</h3>
+                <span class="close" aria-label="Đóng">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="invoice-form">
+                    <div class="form-group">
+                        <label for="invoice-customer">Khách hàng</label>
+                        <input type="text" id="invoice-customer" name="invoice-customer" placeholder="Tên khách hàng" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-amount">Số tiền (₫)</label>
+                        <input type="number" id="invoice-amount" name="invoice-amount" placeholder="Nhập số tiền" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Xuất PDF</button>
+                        <button type="button" class="btn-secondary" id="cancel-invoice">Hủy bỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- Thêm modal cho báo cáo -->
+<div id="report-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-report">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title-report">Tạo Báo Cáo</h3>
+            <span class="close" aria-label="Đóng">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="report-form">
+                <div class="form-group">
+                    <label for="report-period">Kỳ báo cáo</label>
+                    <select id="report-period" name="report-period" required>
+                        <option value="">Chọn kỳ báo cáo</option>
+                        <option value="month">Tháng</option>
+                        <option value="quarter">Quý</option>
+                        <option value="year">Năm</option>
+                        <option value="custom">Tùy chỉnh</option>
+                    </select>
+                </div>
+                <div class="form-group" id="custom-date-range" style="display: none;">
+                    <label for="start-date">Từ ngày</label>
+                    <input type="date" id="start-date" name="start-date">
+                    <label for="end-date">Đến ngày</label>
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+                <div class="form-group">
+                    <label for="report-type">Loại báo cáo</label>
+                    <select id="report-type" name="report-type" required>
+                        <option value="">Chọn loại báo cáo</option>
+                        <option value="financial">Báo cáo tài chính</option>
+                        <option value="transaction">Báo cáo giao dịch</option>
+                        <option value="tax">Báo cáo thuế</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Tạo báo cáo</button>
+                    <button type="button" class="btn-secondary" id="cancel-report">Hủy bỏ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="qlns.js"></script>
+    <script src="taichinh.js"></script>
+</body>
+
+</html>

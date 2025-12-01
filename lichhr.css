@@ -1,0 +1,184 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f9;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schedule-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.schedule-controls select,
+.schedule-controls button {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.schedule-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.schedule-controls button:hover {
+    background-color: #0056b3;
+}
+
+.calendar-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #b02a37;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* FullCalendar Customization */
+.fc {
+    font-family: 'Inter', sans-serif;
+}
+
+.fc .fc-daygrid-day-number {
+    color: #333;
+}
+
+.fc .fc-daygrid-day-top {
+    justify-content: center;
+}
+
+.fc .fc-col-header-cell {
+    background-color: #007bff;
+    color: white;
+}
+
+.fc .fc-event {
+    border-radius: 4px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.fc .fc-event.meeting {
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+.fc .fc-event.training {
+    background-color: #28a745;
+    border-color: #218838;
+}
+
+.fc .fc-event.interview {
+    background-color: #ffc107;
+    border-color: #e0a800;
+}
+
+.fc .fc-event.other {
+    background-color: #6c757d;
+    border-color: #5a6268;
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự Án - Quản Lý Nhân Sự</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="qlns.css">
+  <link rel="stylesheet" href="duan.css">
+</head>
+
+<body>
+  <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li ><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li class="active"><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Dự án , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+      <!-- PHẦN RIÊNG -->
+      <div class="projects-page">
+        <!-- Bộ lọc và nút -->
+        <div class="projects-toolbar">
+          <button id="add-project-btn" class="btn-primary"><i class="fas fa-plus"></i> Thêm dự án</button>
+          <input type="text" id="search-project" placeholder="Tìm dự án...">
+          <select id="filter-status">
+            <option value="">Tất cả trạng thái</option>
+            <option value="ongoing">Đang thực hiện</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="delayed">Trễ hạn</option>
+          </select>
+          <select id="filter-priority">
+            <option value="">Tất cả ưu tiên</option>
+            <option value="high">Cao</option>
+            <option value="medium">Trung bình</option>
+            <option value="low">Thấp</option>
+          </select>
+        </div>
+
+        <!-- Danh sách dự án -->
+        <div class="projects-grid" id="projects-list">
+          <!-- Dự án sẽ được render qua JS -->
+        </div>
+
+        <!-- Biểu đồ -->
+       <!-- Phân tích rủi ro dự án -->
+<div class="risk-analysis">
+  <h3>Phân tích rủi ro dự án</h3>
+  <div class="risk-controls">
+    <button id="analyze-risks-btn" class="btn-primary"><i class="fas fa-chart-line"></i> Phân tích rủi ro</button>
+    <select id="risk-sort">
+      <option value="priority">Sắp xếp theo mức độ ưu tiên</option>
+      <option value="probability">Sắp xếp theo xác suất</option>
+      <option value="impact">Sắp xếp theo mức độ ảnh hưởng</option>
+    </select>
+  </div>
+  <div class="risk-table-container">
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Dự án</th>
+          <th>Rủi ro tiềm ẩn</th>
+          <th>Xác suất</th>
+          <th>Mức độ ảnh hưởng</th>
+          <th>Mức độ ưu tiên</th>
+          <th>Biện pháp phòng ngừa</th>
+        </tr>
+      </thead>
+      <tbody id="risk-analysis-body">
+        <!-- Dữ liệu rủi ro sẽ được thêm bằng JS -->
+      </tbody>
+    </table>
+  </div>
+  <div class="risk-summary">
+    <div class="risk-summary-item high-risk">
+      <span class="risk-count" id="high-risk-count">0</span>
+      <span class="risk-label">Rủi ro cao</span>
+    </div>
+    <div class="risk-summary-item medium-risk">
+      <span class="risk-count" id="medium-risk-count">0</span>
+      <span class="risk-label">Rủi ro trung bình</span>
+    </div>
+    <div class="risk-summary-item low-risk">
+      <span class="risk-count" id="low-risk-count">0</span>
+      <span class="risk-label">Rủi ro thấp</span>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm/Sửa Dự Án -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Thêm dự án mới</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="project-form">
+          <label>Tên dự án</label>
+          <input type="text" id="project-name" required>
+
+          <label>Ngày bắt đầu</label>
+          <input type="date" id="project-start" required>
+
+          <label>Ngày kết thúc</label>
+          <input type="date" id="project-end" required>
+
+          <label>Mức độ ưu tiên</label>
+          <select id="project-priority">
+            <option value="high">Cao</option>
+            <option value="medium">Trung bình</option>
+            <option value="low">Thấp</option>
+          </select>
+
+          <label>Trạng thái</label>
+          <select id="project-status">
+            <option value="ongoing">Đang thực hiện</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="delayed">Trễ hạn</option>
+          </select>
+
+          <label>Mô tả</label>
+          <textarea id="project-description"></textarea>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Lưu</button>
+            <button type="button" class="btn-secondary" id="cancel-btn">Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thư viện -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="qlns.js"></script>
+  <script src="duan.js"></script>
+</body>
+
+</html>
