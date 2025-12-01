@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hộp Thư Nhân Viên - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <style>
+        .mail-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .conversation-list {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .conversation-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .conversation-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .conversation-item.active {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .conversation-info h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .conversation-meta {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .employee-info {
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .unread-badge {
+            background: #ff4444;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+        
+        .status-badge {
+            background: #28a745;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 11px;
+        }
+        
+        .status-badge.closed {
+            background: #6c757d;
+        }
+        
+        .message-container {
+            margin-top: 20px;
+        }
+        
+        .message-list {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .message.employee {
+            background: #e3f2fd;
+            margin-right: auto;
+            border-bottom-left-radius: 0;
+        }
+        
+        .message.admin {
+            background: #f0f0f0;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+        }
+        
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .reply-form {
+            display: none;
+        }
+        
+        .reply-form.active {
+            display: block;
+        }
+        
+        .conversation-actions {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-close-conversation {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn-close-conversation:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                      <li class="active"><a href="admin_hopthu.html"><i class="fas fa-envelope"></i> <span>Hộp thư nhân viên</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Trang chủ , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+
+            <!-- PHẦN RIÊNG -->
+
+            <div class="dashboard-content">
+                <div class="mail-container">
+                    <h2><i class="fas fa-envelope"></i> Tin nhắn từ nhân viên</h2>
+                    
+                    <div class="conversation-list" id="conversation-list">
+                        <!-- Danh sách hội thoại sẽ được tải ở đây -->
+                    </div>
+                    
+                    <div class="message-container" id="message-container" style="display: none;">
+                        <div class="conversation-actions">
+                            <button class="btn-close-conversation" id="btn-close-conversation">
+                                <i class="fas fa-lock"></i> Đóng hội thoại
+                            </button>
+                        </div>
+                        
+                        <h3 id="conversation-subject"></h3>
+                        <div class="message-list" id="message-list">
+                            <!-- Tin nhắn sẽ được tải ở đây -->
+                        </div>
+                        
+                        <div class="reply-form" id="reply-form">
+                            <form id="reply-message-form">
+                                <input type="hidden" id="current-conversation-id">
+                                <div class="form-group">
+                                    <textarea id="reply-message" rows="4" placeholder="Nhập tin nhắn trả lời..." required></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-send">Gửi trả lời</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="qlns.js"></script>
+    <script src="admin_hopthu.js"></script>
+</body>
+</html>
