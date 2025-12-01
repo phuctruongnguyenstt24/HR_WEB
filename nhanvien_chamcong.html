@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chấm Công - Nhân Viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .attendance-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .attendance-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-details h2 {
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+
+        .user-details p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .clock-section {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .current-time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .current-date {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .punch-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .punch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .punch-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .punch-btn.check-out {
+            background: var(--danger-color);
+        }
+
+        .attendance-status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .today-summary {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-card h4 {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .summary-card p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification.success {
+            background: var(--success-color);
+        }
+
+        .notification.error {
+            background: var(--danger-color);
+        }
+
+        .notification.info {
+            background: var(--primary-color);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="attendance-container">
+        <div class="attendance-header">
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">NV</div>
+                <div class="user-details">
+                    <h2 id="user-name">Nguyễn Văn A</h2>
+                    <p id="user-position">Nhân viên</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="clock-section">
+            <div class="current-time" id="current-time">00:00:00</div>
+            <div class="current-date" id="current-date">Thứ Hai, 01 tháng 1, 2024</div>
+
+            <button class="punch-btn" id="punch-btn">
+                <i class="fas fa-fingerprint"></i>
+                <span id="punch-text">CHECK-IN</span>
+            </button>
+
+            <div class="attendance-status" id="attendance-status">
+                Chào mừng bạn đến với hệ thống chấm công
+            </div>
+        </div>
+
+        <div class="today-summary">
+            <h3>Hôm nay</h3>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4>Check-in</h4>
+                    <p id="check-in-time">--:--</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Check-out</h4>
+                    <p id="check-out-time">--:--</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Tổng giờ</h4>
+                    <p id="total-hours">0h</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Trạng thái</h4>
+                    <p id="work-status">Chưa làm</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="location.href='nhanvien_trangchu.html'">
+                <i class="fas fa-home"></i><br>Trang chủ
+            </button>
+            <button class="nav-btn" onclick="location.href='nhanvien_lichsu.html'">
+                <i class="fas fa-history"></i><br>Lịch sử
+            </button>
+            <button class="nav-btn" onclick="location.href='nhanvien_nghiphep.html'">
+                <i class="fas fa-calendar-plus"></i><br>Nghỉ phép
+            </button>
+            <button class="nav-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i><br>Đăng xuất
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="nhanvien_chamcong.js">
+
+    </script>
+</body>
+
+</html>

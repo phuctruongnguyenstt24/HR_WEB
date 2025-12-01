@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Nhân Viên - Hệ Thống Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="nhanvien_trangchu.css">
+    <!-- Thêm vào head, sau Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- PHẦN CHUNG -->
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Nhân Viên</h2>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="nhanvien_trangchu.html"><i class="fas fa-home"></i> <span>Trang
+                            chủ</span></a></li>
+                <li><a href="profile_nhanvien.html"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+
+                <li><a href="nhanvien_chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                <li><a href="nhanvien_thoigianlamviec.html"><i class="fas fa-clock"></i> <span>Thời gian làm
+                            việc</span></a></li>
+
+
+                <li><a href="calendar.html"><i class="fas fa-calendar-day"></i> <span>Lịch làm
+                            việc</span></a></li>
+                <li><a href="salary.html"><i class="fas fa-file-invoice-dollar"></i> <span>Lương & Phúc lợi</span></a>
+                </li>
+                <li><a href="finance.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính cá nhân</span></a></li>
+                <li>
+                    <a href="#" id="logout-btn" title="Đăng xuất">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">NV</div>
+                <div class="user-details">
+                    <h3>Nguyễn Văn A</h3>
+                    <p>Nhân viên Kinh doanh</p>
+                </div>
+            </div>
+            <div class="notification-bell">
+                <i class="fas fa-bell"></i>
+                <div class="notification-badge">3</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Số ngày làm việc</div>
+                    <div class="card-icon" style="background-color: #3498db;">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                </div>
+                <div class="card-content">18</div>
+                <div class="card-footer">Tháng này</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Giờ làm việc</div>
+                    <div class="card-icon" style="background-color: #2ecc71;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="card-content">145.5h</div>
+                <div class="card-footer">Tháng này</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Ngày phép còn lại</div>
+                    <div class="card-icon" style="background-color: #e74c3c;">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                </div>
+                <div class="card-content">7</div>
+                <div class="card-footer">Năm nay</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Khóa đào tạo</div>
+                    <div class="card-icon" style="background-color: #9b59b6;">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                </div>
+                <div class="card-content">3</div>
+                <div class="card-footer">Đang tham gia</div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <h2 class="section-title">Hoạt động gần đây</h2>
+        <div class="activity-list">
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Chấm công vào</h4>
+                    <p>Bạn đã chấm công vào lúc 08:05 sáng</p>
+                    <div class="activity-time">Hôm nay, 08:05</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Hoàn thành khóa đào tạo</h4>
+                    <p>Bạn đã hoàn thành khóa "Kỹ năng giao tiếp"</p>
+                    <div class="activity-time">Hôm qua, 15:30</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Phiếu lương tháng 6</h4>
+                    <p>Phiếu lương tháng 6 đã sẵn sàng</p>
+                    <div class="activity-time">3 ngày trước</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Lịch họp tuần</h4>
+                    <p>Lịch họp tuần mới đã được cập nhật</p>
+                    <div class="activity-time">5 ngày trước</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="section-title" style="margin-top: 30px;">Thao tác nhanh</h2>
+        <div class="quick-actions">
+            <button class="action-btn">
+                <div class="action-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <div class="action-text">Chấm công</div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+                <div class="action-text">Đăng ký nghỉ phép</div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="action-text">Báo cáo công việc</div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">
+                    <i class="fas fa-money-check-alt"></i>
+                </div>
+                <div class="action-text">Xem lương</div>
+            </button>
+        </div>
+    </div>
+
+    <script src="nhanvien_trangchu.js"></script>
+</body>
+
+</html>
