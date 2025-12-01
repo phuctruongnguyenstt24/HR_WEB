@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Chấm Công</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="chamcong.css">
+</head>
+
+<body>
+
+    <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li class="active"><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm
+                                công</span></a></li>
+                    <li><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Chấm công , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+            <!-- Phần code riêng cho trang chấm công -->
+            <!-- DASHBOARD CONTENT - NỘI DUNG CHÍNH CỦA TRANG CHẤM CÔNG -->
+            <div class="dashboard-content">
+                <!-- Khu vực đồng hồ và nút bấm -->
+                <div class="punch-card">
+                    <div class="punch-clock">
+                        <p id="current-time" class="time">00:00:00</p>
+                        <p id="current-date-full" class="date"></p>
+                    </div>
+                    <div class="punch-actions">
+                        <button id="punch-btn" class="punch-in">
+                            <i class="fas fa-arrow-right-to-bracket"></i>
+                            <span id="punch-text">Check-in</span>
+                        </button>
+                    </div>
+                    <div class="punch-status">
+                        <p id="punch-status-text">Bạn chưa Check-in</p>
+                    </div>
+                </div>
+
+                <!-- Khu vực thống kê nhanh -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-blue"><i class="fas fa-business-time"></i></div>
+                        <div class="stat-info">
+                            <h3>Tổng giờ tuần này</h3>
+                            <p id="weekly-hours">0 giờ 0 phút</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-orange"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h3>Đến muộn</h3>
+                            <p id="late-count">0 lần</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-green"><i class="fas fa-coins"></i></div>
+                        <div class="stat-info">
+                            <h3>Giờ làm thêm</h3>
+                            <p id="overtime-hours">0 giờ 0 phút</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khu vực nhật ký chấm công gần đây -->
+                <div class="recent-log">
+                    <h3>Nhật ký chấm công toàn công ty</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button id="refresh-all-btn" class="action-btn" style="background-color: #3498db;">
+                            <i class="fas fa-sync-alt"></i> Làm mới
+                        </button>
+                        <button id="clear-log-btn" class="action-btn" style="background-color: #e74c3c;">
+                            <i class="fas fa-trash"></i> Xóa nhật ký
+                        </button>
+                    </div>
+                    <div class="log-table-container">
+                        <table class="log-table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Nhân viên</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tổng giờ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="log-body">
+                                <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Khu vực xin nghỉ phép -->
+                <div class="leave-request-card">
+                    <h3>Xin nghỉ phép</h3>
+                    <p>Nộp đơn xin nghỉ phép, nghỉ ốm hoặc nghỉ phép hàng năm.</p>
+                    <button id="open-leave-form-btn" class="action-btn">Tạo đơn nghỉ phép</button>
+                    <br>
+                    <br>
+                    <div class="card">
+                        <h2>Lịch sử nghỉ phép</h2>
+                        <div class="table-container">
+                            <table id="leave-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 0%;">Ngày nghỉ</th>
+                                        <th>Loại phép</th>
+                                        <th>Lý do</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leave-requests-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="leave-modal" class="modal-overlay hidden">
+                        <div class="modal-container">
+                            <h2>Tạo đơn xin nghỉ phép</h2>
+                            <form id="leave-form">
+                                <div class="form-group">
+                                    <label for="leave-date">Ngày nghỉ:</label>
+                                    <input type="date" id="leave-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="leave-type">Loại phép:</label>
+                                    <select id="leave-type" required>
+                                        <option value="Nghỉ có lương">Nghỉ có lương</option>
+                                        <option value="Nghỉ ốm">Nghỉ ốm</option>
+                                        <option value="Nghỉ không lương">Nghỉ không lương</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="leave-reason">Lý do:</label>
+                                    <textarea id="leave-reason" rows="3" required></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-submit">Gửi đơn</button>
+                                    <button type="button" id="cancel-leave-btn" class="btn-cancel">Hủy</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Thêm vào sau phần "Xin nghỉ phép" -->
+                    <div class="salary-calculation-card">
+                        <h3>Tính lương</h3>
+                        <div class="salary-controls">
+                            <div class="form-group">
+                                <label for="salary-month">Chọn tháng:</label>
+                                <input type="month" id="salary-month">
+                            </div>
+                            <button id="calculate-salary-btn" class="action-btn">
+                                <i class="fas fa-calculator"></i> Tính lương
+                            </button>
+                            <!-- Sửa nút trong chamcong.html -->
+                            <button id="export-salary-btn" class="action-btn" style="background-color: #28a745;">
+                                <i class="fas fa-file-excel"></i> Xuất Excel
+                            </button>
+                        </div>
+
+                        <!-- Kết quả tính lương -->
+                        <div id="salary-result" class="salary-result" style="display: none;">
+                            <div class="salary-summary">
+                                <h4>Bảng lương tháng <span id="salary-month-display"></span></h4>
+                                <div class="salary-details">
+                                    <div class="salary-item">
+                                        <span class="salary-label">Lương cơ bản:</span>
+                                        <span id="basic-salary" class="salary-amount">0 VNĐ</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Tổng giờ làm:</span>
+                                        <span id="total-work-hours">0 giờ</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Lương theo giờ:</span>
+                                        <span id="hourly-salary">0 VNĐ</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Giờ làm thêm:</span>
+                                        <span id="overtime-hours-salary">0 giờ</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Lương làm thêm:</span>
+                                        <span id="overtime-salary">0 VNĐ</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Số ngày nghỉ phép:</span>
+                                        <span id="leave-days">0 ngày</span>
+                                    </div>
+                                    <div class="salary-item">
+                                        <span class="salary-label">Khấu trừ nghỉ phép:</span>
+                                        <span id="leave-deduction">0 VNĐ</span>
+                                    </div>
+                                    <div class="salary-item total">
+                                        <span class="salary-label">Tổng lương thực nhận:</span>
+                                        <span id="net-salary" class="salary-amount">0 VNĐ</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chi tiết lương theo ngày -->
+                        <div id="salary-details" class="salary-details-table" style="display: none;">
+                            <h4>Chi tiết lương theo ngày</h4>
+                            <div class="table-container">
+                                <table id="daily-salary-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày</th>
+-           <th>Nhân viên</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
++           <th>Nhân viên</th>
+            <th>Tổng giờ</th>
+            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="daily-salary-body">
+                                        <!-- Dữ liệu sẽ được thêm bởi JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="qlns.js"></script>
+    <!-- <script src="nhanvien_chamcong.js"></script> -->
+    <!-- Liên kết đến JavaScript của trang chấm công -->
+    <script src="chamcong.js"></script>
+
+
+    <script>
+        // Kiểm tra phân quyền khi vào trang
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const currentPage = window.location.pathname.split("/").pop();
+
+            // Nếu là nhân viên và không phải trang chấm công
+            if (currentUser.role === 'employee' && currentPage !== 'chamcong.html') {
+                // Hiển thị thông báo nhưng vẫn cho phép sử dụng
+                console.log('Nhân viên truy cập trang:', currentPage);
+                // Có thể thêm thông báo nhẹ nếu cần
+            }
+
+            // Cập nhật thông tin user
+            updatePageUserInfo();
+        });
+
+        function updatePageUserInfo() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+            // Cập nhật avatar
+            const avatars = document.querySelectorAll('.user-avatar img, #user-avatar');
+            avatars.forEach(avatar => {
+                if (currentUser.avatar_url) {
+                    avatar.src = currentUser.avatar_url;
+                } else if (currentUser.picture) {
+                    avatar.src = currentUser.picture;
+                }
+                avatar.alt = currentUser.full_name || currentUser.name || 'User';
+            });
+
+            // Cập nhật tên
+            const usernames = document.querySelectorAll('.user-name, #username');
+            usernames.forEach(element => {
+                element.textContent = currentUser.full_name || currentUser.name || 'User';
+            });
+        }
+    </script>
+</body>
+
+</html>

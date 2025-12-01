@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đào Tạo - Quản Lý Nhân Sự</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="daotao.css">
+
+
+</head>
+
+<body>
+  <!-- Phần CHUNG -->
+    <!-- Dashboard -->
+    <div id="dashboard" class="container" style="display:none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar"  alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+          
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân
+                                sự</span></a></li>
+                    <li ><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a>
+                    </li>
+                    <li ><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm
+                                công</span></a></li>
+                    <li class="active" ><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu
+                                suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch
+                                HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển
+                                dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự
+                                án</span></a>
+                    </li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài
+                                chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Đào tạo, <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+            <!-- Phần code riêng  -->
+            <div class="training-content">
+                <div class="training-header">
+                    <h2>Quản lý Đào tạo</h2>
+                    <div class="training-actions">
+                        <button class="btn-primary" id="open-create-modal"><i class="fas fa-plus"></i> Tạo khóa học
+                            mới</button>
+                        <button class="btn-outline" id="export-report-btn"><i class="fas fa-download"></i> Xuất báo
+                            cáo</button>
+                    </div>
+                </div>
+
+                <div class="training-grid">
+                    <div class="training-card">
+                        <div class="training-card-header">
+                            <h3 class="training-card-title">Tổng số khóa học</h3>
+                            <div class="training-card-icon bg-blue">
+                                <i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                        <h2 id="total-courses">24</h2>
+                        <p class="text-muted">Cập nhật 1 giờ trước</p>
+                        <div class="training-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="active-courses">18</div>
+                                <div class="stat-label">Đang hoạt động</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="upcoming-courses">6</div>
+                                <div class="stat-label">Sắp diễn ra</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-card-header">
+                            <h3 class="training-card-title">Nhân viên đã đào tạo</h3>
+                            <div class="training-card-icon bg-green">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
+                        <h2 id="trained-employees">142</h2>
+                        <p class="text-muted">Tính từ đầu năm</p>
+                        <div class="training-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="completion-rate">86%</div>
+                                <div class="stat-label">Tỷ lệ hoàn thành</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="avg-rating">4.2/5</div>
+                                <div class="stat-label">Đánh giá trung bình</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-card-header">
+                            <h3 class="training-card-title">Ngân sách đào tạo</h3>
+                            <div class="training-card-icon bg-orange">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                        </div>
+                        <h2 id="total-budget">185.000.000 ₫</h2>
+                        <p class="text-muted">Còn lại: <span id="remaining-budget">42.500.000 ₫</span></p>
+                        <div class="training-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="used-percentage">77%</div>
+                                <div class="stat-label">Đã sử dụng</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="remaining-percentage">23%</div>
+                                <div class="stat-label">Còn lại</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-card-header">
+                            <h3 class="training-card-title">Đào tạo theo phòng ban</h3>
+                            <div class="training-card-icon bg-purple">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                        </div>
+                        <h2 id="department-count">5 phòng ban</h2>
+                        <p class="text-muted">Cập nhật 1 giờ trước</p>
+                        <div class="training-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">KT</div>
+                                <div class="stat-label" id="dept-tech">Kỹ thuật: 62 NV</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">KD</div>
+                                <div class="stat-label" id="dept-business">Kinh doanh: 48 NV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <select class="filter-select" id="department-filter">
+                        <option value="all">Tất cả phòng ban</option>
+                        <option value="Kỹ thuật">Kỹ thuật</option>
+                        <option value="Kinh doanh">Kinh doanh</option>
+                        <option value="Nhân sự">Nhân sự</option>
+                        <option value="Kế toán">Kế toán</option>
+                    </select>
+                    <select class="filter-select" id="status-filter">
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="Đang diễn ra">Đang diễn ra</option>
+                        <option value="Sắp diễn ra">Sắp diễn ra</option>
+                        <option value="Đã hoàn thành">Đã hoàn thành</option>
+                    </select>
+                    <select class="filter-select" id="sort-by">
+                        <option value="default">Sắp xếp theo</option>
+                        <option value="newest">Mới nhất</option>
+                        <option value="oldest">Cũ nhất</option>
+                        <option value="students">Số lượng học viên</option>
+                    </select>
+                    <input type="text" class="filter-select" id="search-input" placeholder="Tìm kiếm khóa học...">
+                </div>
+
+                <div class="training-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Khóa học đang diễn ra</h3>
+                        <a href="#" class="view-all">Xem tất cả <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="course-list" id="active-courses-list">
+                    </div>
+                </div>
+
+                <div class="training-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Khóa học sắp diễn ra</h3>
+                        <a href="#" class="view-all">Xem tất cả <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="course-list" id="upcoming-courses-list">
+                    </div>
+                </div>
+
+                <div class="training-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Báo cáo đào tạo</h3>
+                        <a href="#" class="view-all">Xem báo cáo đầy đủ <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <table class="training-table">
+                        <thead>
+                            <tr>
+                                <th>Khóa học</th>
+                                <th>Giảng viên</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Số học viên</th>
+                                <th>Đánh giá</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="training-report-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-course-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Tạo khóa học mới</h3>
+            <span class="close-modal-btn" id="close-modal-top">&times;</span>
+            <label for="course-name">Tên khóa học</label>
+            <input type="text" id="course-name" required>
+
+            <label for="course-teacher">Giảng viên</label>
+            <input type="text" id="course-teacher" required>
+
+            <label for="course-start">Ngày bắt đầu</label>
+            <input type="date" id="course-start" required>
+
+            <label for="course-end">Ngày kết thúc</label>
+            <input type="date" id="course-end" required>
+
+            <label for="course-students">Số học viên</label>
+            <input type="number" id="course-students" required>
+
+            <label for="course-status">Trạng thái</label>
+            <select id="course-status">
+                <option value="Đang tiến hành">Đang tiến hành</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+                <option value="Sắp diễn ra">Sắp diễn ra</option>
+            </select>
+
+            <div class="modal-actions">
+                <button id="save-course-btn" class="btn-primary">Lưu</button>
+                <button id="close-modal-btn" class="btn-outline">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="qlns.js"></script>
+    <script src="daotao.js"></script>
+</body>
+
+</html>

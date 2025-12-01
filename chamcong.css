@@ -1,0 +1,505 @@
+/* ===== 1. CÁC THÀNH PHẦN CHUNG/TÁI SỬ DỤNG ===== */
+
+/* Form Group Cơ bản */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Các Nút Hành Động Cơ bản */
+.action-btn,
+.btn-submit,
+.btn-cancel,
+.punch-actions button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+/* Nút Chính (Primary) */
+.action-btn,
+.btn-submit {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.action-btn:hover,
+.btn-submit:hover {
+    background: #5a6fd8;
+    transform: translateY(-1px);
+}
+
+/* Nút Phụ/Hủy (Secondary/Cancel) */
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+/* Nút Cảnh báo/Xóa */
+#clear-log-btn {
+    background: #e74c3c;
+}
+
+#clear-log-btn:hover {
+    background: #c0392b;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-present {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-late {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-absent {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ===== 2. THẺ CHẤM CÔNG (PUNCH CARD) ===== */
+.punch-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 30px;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.punch-clock {
+    margin-bottom: 25px;
+}
+
+.punch-clock .time {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.punch-clock .date {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 10px 0 0 0;
+}
+
+.punch-actions {
+    margin-bottom: 20px;
+}
+
+.punch-actions button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.punch-actions button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.punch-actions button.punch-out {
+    background: rgba(255, 107, 107, 0.8);
+}
+
+.punch-actions button.punch-out:hover {
+    background: rgba(255, 107, 107, 0.9);
+}
+
+.punch-status {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ===== 3. THỐNG KÊ (STATS GRID) ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-icon.bg-blue {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.stat-icon.bg-orange {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.stat-icon.bg-green {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.stat-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.stat-info p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+
+/* Nơi dành cho nhân viên  */
+.employee-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.employee-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.employee-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.employee-department {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+/* ===== 4. LỊCH SỬ GẦN ĐÂY (RECENT LOG) & BẢNG ===== */
+.recent-log {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.recent-log h3 {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+}
+
+
+.log-table-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.log-table th {
+    background: #3498db;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.log-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 14px;
+}
+
+
+.log-table tr:last-child td {
+    border-bottom: none;
+}
+
+.log-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* ===== 5. MODAL (POP-UP) ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-container {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-container h2 {
+    margin: 0 0 25px 0;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+/* ===== 6. TÍNH LƯƠNG (SALARY CALCULATION) ===== */
+.salary-calculation-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+.salary-controls {
+    display: flex;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.salary-controls .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.salary-controls input[type="month"] {
+    /* Đã định nghĩa chung ở .form-group input, ghi đè padding/font-size nếu cần */
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.salary-result {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.salary-summary h4 {
+    margin-bottom: 16px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+}
+
+.salary-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.salary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+}
+
+.salary-item.total {
+    background: #e8f5e8;
+    border-left-color: #27ae60;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.salary-label {
+    color: #495057;
+    font-weight: 500;
+}
+
+.salary-amount {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.salary-details-table {
+    margin-top: 24px;
+}
+
+.salary-details-table h4 {
+    margin-bottom: 16px;
+    color: #2c3e50;
+}
+
+/* ===== 7. RESPONSIVE (MEDIA QUERIES) ===== */
+@media (max-width: 768px) {
+
+    /* Punch Card */
+    .punch-clock .time {
+        font-size: 2.5rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    /* Modal */
+    .modal-container {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    /* Salary Calculation */
+    .salary-controls {
+        flex-direction: column;
+    }
+
+    .salary-controls .form-group {
+        min-width: 100%;
+    }
+
+    .salary-details {
+        grid-template-columns: 1fr;
+    }
+}
