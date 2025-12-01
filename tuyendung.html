@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuyển Dụng - Quản Lý Nhân Sự</title>
+     <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="tuyendung.css">
+</head>
+
+<body>
+  <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li class="active"><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+ 
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Tuyển dụng , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+            <!-- PHẦN RIÊNG - Trang Tuyển Dụng -->
+            <div class="recruitment-content">
+                <!-- Header với các chỉ số -->
+                <div class="recruitment-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Vị trí đang mở</h3>
+                            <span class="stat-number" id="open-positions">12</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Ứng viên mới</h3>
+                            <span class="stat-number" id="new-candidates">48</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Phỏng vấn hôm nay</h3>
+                            <span class="stat-number" id="today-interviews">5</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Đã tuyển dụng</h3>
+                            <span class="stat-number" id="hired-count">24</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần chính với hai cột -->
+                <div class="recruitment-main">
+                    <!-- Cột trái - Danh sách ứng viên -->
+                    <div class="candidates-section">
+                        <div class="section-header">
+                            <h3>Ứng viên mới nhất</h3>
+                            <button class="btn-primary" id="add-candidate-btn">
+                                <i class="fas fa-plus"></i> Thêm ứng viên
+                            </button>
+                        </div>
+
+                        <div class="candidates-filter">
+                            <div class="filter-group">
+                                <i class="fas fa-filter"></i>
+                                <select id="position-filter">
+                                    <option value="">Tất cả vị trí</option>
+                                    <option value="developer">Lập trình viên</option>
+                                    <option value="designer">Thiết kế</option>
+                                    <option value="manager">Quản lý</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <i class="fas fa-sort"></i>
+                                <select id="status-filter">
+                                    <option value="">Tất cả trạng thái</option>
+                                    <option value="new">Mới ứng tuyển</option>
+                                    <option value="reviewed">Đã xem xét</option>
+                                    <option value="interview">Phỏng vấn</option>
+                                    <option value="hired">Đã tuyển</option>
+                                    <option value="rejected">Từ chối</option>
+                                </select>
+                            </div>
+
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Tìm ứng viên..." id="candidate-search">
+                            </div>
+                        </div>
+
+                        <div class="candidates-list" id="candidates-list">
+                            <!-- Danh sách ứng viên sẽ được thêm bằng JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Cột phải - Thống kê và chi tiết -->
+                    <div class="recruitment-details">
+                        <!-- Thống kê ứng viên theo trạng thái -->
+                        <div class="status-chart-card">
+                            <h3>Phân bổ ứng viên</h3>
+                            <div class="chart-container">
+                                <canvas id="candidateStatusChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Lịch phỏng vấn -->
+                        <div class="interview-schedule">
+                            <div class="schedule-header">
+                                <h3>Lịch phỏng vấn hôm nay</h3>
+                                <a href="#" class="view-all">Xem tất cả</a>
+                            </div>
+
+                            <div class="interview-list">
+                                <div class="interview-item">
+                                    <div class="interview-time">
+                                        <span class="time">09:00</span>
+                                        <span class="duration">45 phút</span>
+                                    </div>
+                                    <div class="interview-info">
+                                        <h4>Nguyễn Văn A</h4>
+                                        <p>Lập trình viên Frontend</p>
+                                        <span class="interview-type">Trực tiếp</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="icon-btn"><i class="fas fa-video"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="interview-item">
+                                    <div class="interview-time">
+                                        <span class="time">11:30</span>
+                                        <span class="duration">60 phút</span>
+                                    </div>
+                                    <div class="interview-info">
+                                        <h4>Trần Thị B</h4>
+                                        <p>UI/UX Designer</p>
+                                        <span class="interview-type">Online</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="icon-btn"><i class="fas fa-video"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="interview-item">
+                                    <div class="interview-time">
+                                        <span class="time">14:00</span>
+                                        <span class="duration">60 phút</span>
+                                    </div>
+                                    <div class="interview-info">
+                                        <h4>Lê Văn C</h4>
+                                        <p>Project Manager</p>
+                                        <span class="interview-type">Trực tiếp</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="icon-btn"><i class="fas fa-video"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal thêm ứng viên -->
+                <div id="candidate-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Thêm ứng viên mới</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="candidate-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="candidate-name">Họ và tên</label>
+                                        <input type="text" id="candidate-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="candidate-email">Email</label>
+                                        <input type="email" id="candidate-email" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="candidate-phone">Số điện thoại</label>
+                                        <input type="tel" id="candidate-phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="candidate-position">Vị trí ứng tuyển</label>
+                                        <select id="candidate-position" required>
+                                            <option value="">Chọn vị trí</option>
+                                            <option value="developer">Lập trình viên</option>
+                                            <option value="designer">Thiết kế</option>
+                                            <option value="manager">Quản lý</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="candidate-source">Nguồn ứng viên</label>
+                                    <select id="candidate-source">
+                                        <option value="">Chọn nguồn</option>
+                                        <option value="website">Website công ty</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="referral">Giới thiệu</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="candidate-notes">Ghi chú</label>
+                                    <textarea id="candidate-notes" rows="3"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="candidate-resume">Tải lên CV</label>
+                                    <input type="file" id="candidate-resume" accept=".pdf,.doc,.docx">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn-secondary" id="cancel-candidate">Hủy</button>
+                                    <button type="submit" class="btn-primary">Lưu ứng viên</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="qlns.js"></script>
+    <script src="tuyendung.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,604 @@
+/* hieusuat.css - QUẢN LÝ HIỆU SUẤT & OKR */
+/* =================================================================== */
+/*   CÁC BIẾN CHUNG (Sử dụng trực tiếp trong code để không thay đổi cấu trúc file)  */
+/* ------------------------------------------------------------------- */
+:root {
+    /* Màu sắc */
+    --color-primary: #4361ee;
+    --color-primary-dark: #3f37c9;
+    --color-secondary: #4f46e5;
+    --color-secondary-dark: #4338ca;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --color-light: #f8f9fa;
+    --color-border: #ddd;
+
+    /* Khoảng cách */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    
+    /* Hình dạng */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+}
+/* =================================================================== */
+
+/* ------------------- Bộ lọc hiệu suất (Performance Filters) ------------------- */
+.performance-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--color-light);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Tăng shadow nhẹ */
+}
+
+.filter-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-item label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: #333;
+    font-size: 15px; /* Thống nhất kích thước font */
+}
+
+.filter-item select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: white;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+    appearance: none; /* Ẩn mũi tên mặc định */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 0.8em;
+}
+
+.filter-item select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2); /* Tăng độ sáng shadow */
+}
+
+/* ------------------- Thẻ số liệu hiệu suất (Performance Metrics Cards - Cần bổ sung) ------------------- */
+
+
+/* ------------------- Biểu đồ (Charts - Cần bổ sung) ------------------- */
+
+
+/* =================================================================== */
+/*    PHẦN QUẢN LÝ OKR                                                  */
+/* =================================================================== */
+
+.okr-management-section {
+    margin-top: 40px; /* Điều chỉnh để trông gọn hơn */
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: #f8f9ff;
+    border-radius: var(--radius-md);
+    border: 1px solid #e0e4ff;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 20px; /* Giảm nhẹ kích thước */
+    color: #333;
+    font-weight: 600;
+}
+
+/* Nút Primary (Dùng chung cho Thêm OKR mới và Lưu OKR) */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-secondary); /* #4f46e5 */
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--color-secondary-dark); /* #4338ca */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary i {
+    font-size: 14px;
+}
+
+.okr-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: var(--spacing-lg);
+    padding: 16px;
+    background: var(--color-light);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Thêm shadow nhẹ bên trong */
+}
+
+/* ------------------- Danh sách OKR (OKR List) ------------------- */
+.okr-list {
+    display: grid;
+    /* Có thể dùng grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); cho responsive tốt hơn */
+    gap: var(--spacing-md);
+}
+
+.okr-item {
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0; /* Thêm viền nhẹ */
+}
+
+.okr-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Tăng shadow khi hover */
+    border-color: #e0e0e0;
+}
+
+.okr-header {
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+}
+
+.okr-objective {
+    font-size: 20px; /* Tăng nhẹ kích thước */
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.okr-meta {
+    font-size: 14px;
+    opacity: 0.95;
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.okr-body {
+    padding: var(--spacing-md);
+}
+
+.kr-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid #eee;
+}
+
+.kr-item:last-child {
+    border-bottom: none;
+}
+
+.kr-progress {
+    flex: 1;
+    margin-right: 16px;
+}
+
+.kr-text {
+    flex: 3;
+    font-weight: 500;
+    color: #444;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill.on-track {
+    background: var(--color-success); /* #10b981 */
+}
+
+.progress-fill.at-risk {
+    background: var(--color-warning); /* #f59e0b */
+}
+
+.progress-fill.completed {
+    background: var(--color-primary); /* #4361ee */
+}
+
+.kr-percentage {
+    width: 60px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.okr-actions {
+    padding: 16px var(--spacing-md);
+    background: var(--color-light);
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* ------------------- Modal OKR ------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Nền mờ hơn */
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    width: 95%; /* Tăng độ rộng trên mobile */
+    max-width: 700px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); /* Tăng shadow */
+    animation: modalShow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Hiệu ứng mượt hơn */
+}
+
+@keyframes modalShow {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-header {
+    padding: var(--spacing-md) 24px;
+    background: var(--color-primary);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close {
+    font-size: 30px; /* Tăng kích thước X */
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+#okr-form {
+    padding: 24px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Vùng Key Results */
+.key-results-section {
+    background: #f9fafb;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid #e5e7eb;
+    margin-top: 20px;
+}
+
+.key-results-section h5 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px dashed #e5e7eb;
+    padding-bottom: 10px;
+}
+
+#key-results-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: 15px;
+}
+
+/* Nút Secondary (Thêm Key Result) */
+.btn-secondary {
+    background: #e5e7eb;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #374151;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary i {
+    font-size: 14px;
+}
+
+#key-results-container:empty::before {
+    content: "Chưa có Key Result nào. Nhấn nút bên dưới để thêm.";
+    color: #888;
+    font-style: italic;
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.kr-input-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: white;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid #f0f0f0;
+}
+
+.kr-input-group input {
+    flex: 1;
+    border: 1px solid #eee;
+    padding: 8px 10px;
+}
+
+.kr-input-group button {
+    padding: 8px 12px;
+    background: var(--color-danger); /* #ef4444 */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.kr-input-group button:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    margin-top: 20px;
+    padding: 0 24px 24px 24px; /* Đảm bảo nút nằm trong padding của modal body */
+}
+
+/* Nút Hủy (Cancel Button) */
+.btn-cancel {
+    padding: 10px 18px;
+    background: #e5e7eb;
+    border: 1px solid #d1d5db; /* Thêm viền nhẹ */
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #374151;
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    background: #d1d5db;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Nút Cập nhật */
+.btn-info {
+    background: #0ea5e9;         /* xanh dương sáng */
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-info:hover {
+    background: #0284c7;        /* xanh đậm hơn khi hover */
+}
+
+/* Nút Xóa */
+.btn-danger {
+    background: #ef4444;         /* đỏ */
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-danger:hover {
+    background: #dc2626;        /* đỏ đậm hơn khi hover */
+}
+
+/* Icon */
+.btn-info i,
+.btn-danger i {
+    font-size: 14px;
+}
+
+/* Lưu ý: .modal-actions .btn-primary đã được hợp nhất vào .btn-primary chung */
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .performance-filters,
+    .okr-filters,
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .filter-item,
+    .form-row .form-group {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .section-header h3 {
+        width: 100%;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .okr-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse; /* Nút Lưu lên trên, Hủy xuống dưới */
+        padding: 0 20px 20px 20px;
+    }
+    
+    .modal-actions .btn-primary,
+    .modal-actions .btn-cancel {
+        width: 100%;
+        justify-content: center;
+    }
+}

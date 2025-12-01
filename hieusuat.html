@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Hiệu Suất</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="qlns.css">
+    <link rel="stylesheet" href="hieusuat.css">
+
+
+</head>
+
+<body>
+    <!-- Phần code chung cho tất cả các trang -->
+    <div id="dashboard" class="container" style="display:none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản Lý Nhân Sự</span>
+                </div>
+            </div>
+            <!-- Trong phần header hoặc sidebar của qlns.html -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div id="user-fullname" class="user-name">Tên người dùng</div>
+
+                    <div id="user-role" class="user-role">Vai trò</div>
+                    <div id="login-type" class="login-type"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="qlns.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="nhansu.html"><i class="fas fa-user-friends"></i> <span>Nhân sự</span></a></li>
+                    <li><a href="tochuc.html"><i class="fas fa-sitemap"></i> <span>Tổ chức</span></a></li>
+                    <li><a href="chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                    <li><a href="daotao.html"><i class="fas fa-chalkboard-teacher"></i> <span>Đào
+                                tạo</span></a></li>
+                    <li class="active"><a href="hieusuat.html"><i class="fas fa-chart-line"></i> <span>Hiệu
+                                suất</span></a></li>
+                    <li><a href="lichhr.html"><i class="fas fa-calendar-day"></i> <span>Lịch HR</span></a></li>
+                    <li><a href="tuyendung.html"><i class="fas fa-id-card"></i> <span>Tuyển dụng</span></a></li>
+                    <li><a href="duan.html"><i class="fas fa-project-diagram"></i> <span>Dự án</span></a></li>
+                    <li><a href="taichinh.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="caidat.html" title="Cài đặt"><i class="fas fa-cog"></i></a>
+                <a href="login.html" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="toggle-btn" aria-label="Mở/đóng menu"><i class="fas fa-bars"></i></button>
+                    <div class="greeting">
+                        <h2>Hiệu suất , <span id="username"></span>!</h2>
+                        <p id="current-date"></p>
+                    </div>
+                </div>
+                <!-- Thêm vào header-right trong file HTML -->
+                <div class="header-right">
+                    <i class="fas fa-bell" aria-label="Thông báo"></i>
+
+                    <!-- Thêm phần tử search vào đây -->
+                    <div class="search-wrapper">
+                        <input type="text" id="header-search" placeholder="Tìm kiếm phòng ban, dự án...">
+                        <i class="fas fa-search" id="btn-search" aria-label="Tìm kiếm"></i>
+                        <!-- THÊM PHẦN NÀY - Dropdown cho kết quả tìm kiếm -->
+                        <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <img id="user-avatar" src="" alt="Ảnh đại diện">
+                </div>
+            </header>
+
+            <!-- PHẦN RIÊNG: Nội dung trang hiệu suất -->
+            <div class="performance-content">
+                <!-- Bộ lọc -->
+                <div class="performance-filters">
+                    <div class="filter-item">
+                        <label for="department-filter">Phòng ban</label>
+                        <select id="department-filter">
+                            <option value="all">Tất cả phòng ban</option>
+                            <option value="it">Công nghệ thông tin</option>
+                            <option value="hr">Nhân sự</option>
+                            <option value="sales">Kinh doanh</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="time-filter">Khoảng thời gian</label>
+                        <select id="time-filter">
+                            <option value="month">Tháng này</option>
+                            <option value="quarter">Quý này</option>
+                            <option value="half-year">6 tháng</option>
+                            <option value="year">Năm nay</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="employee-filter">Nhân viên</label>
+                        <select id="employee-filter">
+                            <option value="all">Tất cả nhân viên</option>
+                            <option value="individual">Cá nhân</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="metric-filter">Chỉ số hiệu suất</label>
+                        <select id="metric-filter">
+                            <option value="productivity">Năng suất</option>
+                            <option value="quality">Chất lượng</option>
+                            <option value="efficiency">Hiệu quả</option>
+                            <option value="kpi">KPI</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Thẻ số liệu hiệu suất -->
+                
+                <!-- Bảng xếp hạng hiệu suất -->
+                
+                <!-- Biểu đồ hiệu suất -->
+          
+            <!-- Thêm vào sau phần bộ lọc trong performance-content -->
+            <div class="okr-management-section">
+                <div class="section-header">
+                    <h3>Quản lý Mục tiêu - OKR</h3>
+                    <button class="btn-primary" id="add-okr-btn">
+                        <i class="fas fa-plus"></i> Thêm OKR mới
+                    </button>
+                </div>
+
+                <!-- Bộ lọc OKR -->
+                <div class="okr-filters">
+                    <div class="filter-item">
+                        <label for="okr-cycle">Chu kỳ OKR</label>
+                        <select id="okr-cycle">
+                            <option value="q1-2024">Quý 1 - 2024</option>
+                            <option value="q2-2024">Quý 2 - 2024</option>
+                            <option value="q3-2024">Quý 3 - 2024</option>
+                            <option value="q4-2024">Quý 4 - 2024</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="okr-owner">Người sở hữu</label>
+                        <select id="okr-owner">
+                            <option value="all">Tất cả</option>
+                            <option value="company">Công ty</option>
+                            <option value="department">Phòng ban</option>
+                            <option value="individual">Cá nhân</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="okr-status">Trạng thái</label>
+                        <select id="okr-status">
+                            <option value="all">Tất cả</option>
+                            <option value="on-track">Đúng tiến độ</option>
+                            <option value="at-risk">Có rủi ro</option>
+                            <option value="completed">Hoàn thành</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Danh sách OKR -->
+                <div class="okr-list" id="okr-list">
+                    <!-- OKR items sẽ được render bằng JavaScript -->
+                </div>
+            </div>
+
+            <!-- Modal thêm/sửa OKR -->
+            <div id="okr-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="modal-title">Thêm OKR mới</h4>
+                        <span class="close">&times;</span>
+                    </div>
+                    <form id="okr-form">
+                        <div class="form-group">
+                            <label for="objective">Mục tiêu (Objective)*</label>
+                            <textarea id="objective" placeholder="Mô tả mục tiêu rõ ràng, truyền cảm hứng..."
+                                required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="okr-cycle-select">Chu kỳ*</label>
+                                <select id="okr-cycle-select" required>
+                                    <option value="q1-2024">Quý 1 - 2024</option>
+                                    <option value="q2-2024">Quý 2 - 2024</option>
+                                    <option value="q3-2024">Quý 3 - 2024</option>
+                                    <option value="q4-2024">Quý 4 - 2024</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="okr-owner-select">Chủ sở hữu*</label>
+                                <select id="okr-owner-select" required>
+                                    <option value="company">Công ty</option>
+                                    <option value="department">Phòng ban</option>
+                                    <option value="individual">Cá nhân</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department-select">Phòng ban (nếu áp dụng)</label>
+                            <select id="department-select">
+                                <option value="">Chọn phòng ban</option>
+                                <option value="it">Công nghệ thông tin</option>
+                                <option value="hr">Nhân sự</option>
+                                <option value="sales">Kinh doanh</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+
+                        <!-- Key Results Section -->
+                        <div class="key-results-section">
+                            <h5>Kết quả then chốt (Key Results)</h5>
+                            <div id="key-results-container">
+                                <!-- Key result items sẽ được thêm động -->
+                            </div>
+                            <button type="button" class="btn-secondary" id="add-kr-btn">
+                                <i class="fas fa-plus"></i> Thêm Key Result
+                            </button>
+                        </div>
+
+                        <div class="modal-actions">
+                            <button type="button" class="btn-cancel" id="cancel-okr">Hủy</button>
+                            <button type="submit" class="btn-primary">Lưu OKR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- Thư viện -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
+    <script src="qlns.js"></script>
+    <script src="hieusuat.js"></script>
+
+</body>
+
+</html>
