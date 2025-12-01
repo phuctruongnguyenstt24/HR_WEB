@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lương & Phúc lợi</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="nhanvien_trangchu.css">
+   
+    <style>
+        /* CSS riêng cho trang Lương */
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #f4f6f9; 
+            margin:0; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 20px; 
+        }
+        h1 { 
+            color: #27ae60; 
+            text-align: center; 
+            font-size: 2.2em; 
+            margin-bottom: 30px;
+        }
+        .card { 
+            background: white; 
+            border-radius: 10px; 
+            padding: 25px; 
+            margin: 20px 0; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .salary-slip { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .salary-slip h2 {
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        .salary-slip p {
+            margin: 8px 0;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+        }
+        .salary-slip p strong {
+            font-weight: 600;
+        }
+        .salary-slip h3 {
+            margin: 25px 0 0 !important;
+            font-size: 2em;
+            text-align: right;
+            padding-top: 15px;
+            border-top: 2px solid white;
+        }
+        .info-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 25px; 
+            margin-top: 40px; 
+        }
+        .info-item { 
+            background: #fff; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08); 
+            text-align: center;
+            border-left: 5px solid #27ae60;
+            transition: all 0.3s ease;
+        }
+        .info-item:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-left: 5px solid #2ecc71;
+        }
+        .info-item i { 
+            font-size: 45px; 
+            color: #27ae60; 
+            margin-bottom: 15px; 
+        }
+        .info-item h3 {
+            color: #333;
+            margin: 0 0 10px;
+            font-size: 1.3em;
+        }
+        .info-item p {
+            color: #777;
+            margin: 0;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Nhân Viên</h2>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="nhanvien_trangchu.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                <li><a href="profile_nhanvien.html"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                <li><a href="nhanvien_chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                <li><a href="nhanvien_thoigianlamviec.html"><i class="fas fa-clock"></i> <span>Thời gian làm việc</span></a></li>
+                <li><a href="calendar.html"><i class="fas fa-calendar-day"></i> <span>Lịch làm việc</span></a></li>
+                <li class="active"><a href="salary.html"><i class="fas fa-file-invoice-dollar"></i> <span>Lương & Phúc lợi</span></a></li> 
+                <li><a href="finance.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính cá nhân</span></a></li>
+                <li><a href="#" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1><i class="fas fa-file-invoice-dollar"></i> Lương & Phúc lợi</h1>
+
+        <div class="card salary-slip">
+            <h2 style="margin-top:0">Phiếu lương tháng 11/2025</h2>
+            <p><strong>Nhân viên:</strong> <span>Nguyễn Văn A</span></p>
+            <p><strong>Lương cơ bản:</strong> <span>15,000,000 đ</span></p>
+            <p><strong>Phụ cấp:</strong> <span>3,000,000 đ</span></p>
+            <p><strong>Thưởng hiệu suất:</strong> <span>5,000,000 đ</span></p>
+            <p><strong>Bảo hiểm khấu trừ:</strong> <span>-1,800,000 đ</span></p>
+            <h3>Thực lãnh: 21,200,000 đ</h3>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Bảo hiểm đầy đủ</h3>
+                <p>BHXH, BHYT, BHTN theo luật</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-plane"></i>
+                <h3>Nghỉ phép 14 ngày/năm</h3>
+                <p>+ Nghỉ lễ, tết theo quy định</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-gift"></i>
+                <h3>Thưởng lễ, tết</h3>
+                <p>Tối thiểu 1 tháng lương</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-laptop-medical"></i>
+                <h3>Khám sức khỏe định kỳ</h3>
+                <p>Miễn phí hàng năm</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ==================== KIỂM TRA ĐĂNG NHẬP & THÔNG TIN USER ====================
+        let currentUser = null;
+
+        function checkAuthentication() {
+            const userData = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const token = localStorage.getItem('session_token');
+
+            if (!userData || !token) {
+                Swal.fire('Chưa đăng nhập', 'Vui lòng đăng nhập để tiếp tục', 'warning').then(() => {
+                    window.location.href = 'login.html';
+                });
+                return false;
+            }
+
+            // Chỉ cho nhân viên truy cập
+            const allowedRoles = ['employee', 'nhanvien', 'staff'];
+            if (!allowedRoles.includes(userData.role)) {
+                window.location.href = 'qlns.html'; // hoặc trang quản lý
+                return false;
+            }
+
+            currentUser = userData;
+            updateUserInfo();
+            return true;
+        }
+
+        function updateUserInfo() {
+            if (!currentUser) return;
+
+            // ... (Phần cập nhật thông tin User trên Sidebar nếu có)
+            const userNameEl = document.getElementById('user-name');
+            const userPositionEl = document.getElementById('user-position');
+            const userAvatarEl = document.getElementById('user-avatar');
+
+            // Giả định có các element này trong nhanvien_trangchu.html
+            const fullName = currentUser.full_name || currentUser.name || currentUser.username || 'Nhân viên';
+            if(userNameEl) userNameEl.textContent = fullName;
+
+            const roleDisplay = {
+                'employee': 'Nhân viên', 'nhanvien': 'Nhân viên', 'staff': 'Nhân viên'
+            };
+            if(userPositionEl) userPositionEl.textContent = roleDisplay[currentUser.role] || 'Nhân viên';
+
+            // Avatar
+            if (userAvatarEl) {
+                if (currentUser.avatar_url || currentUser.picture) {
+                    userAvatarEl.innerHTML = `<img src="${currentUser.avatar_url || currentUser.picture}" alt="Avatar">`;
+                } else {
+                    const initials = fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    userAvatarEl.textContent = initials;
+                }
+            }
+        }
+        // ==================== ĐĂNG XUẤT ====================
+        async function logout() {
+            const confirmResult = await Swal.fire({
+                title: 'Xác nhận đăng xuất',
+                text: 'Bạn có chắc chắn muốn đăng xuất?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Đăng xuất',
+                cancelButtonText: 'Hủy'
+            });
+
+            if (!confirmResult.isConfirmed) return;
+
+            Swal.fire({ title: 'Đang đăng xuất...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            const sessionToken = localStorage.getItem('session_token');
+            if (sessionToken) {
+                try {
+                    // Giả sử API logout nằm ở đây
+                    await fetch('http://localhost/unitop-php/logout.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session_token: sessionToken })
+                    });
+                } catch (e) { console.warn('Logout API lỗi (vẫn đăng xuất client)', e); }
+            }
+
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('session_token');
+
+            Swal.fire({ icon: 'success', title: 'Đăng xuất thành công!', timer: 1500, showConfirmButton: false })
+                .then(() => window.location.href = 'login.html');
+        }
+
+        // Gắn sự kiện logout
+        document.getElementById('logout-btn')?.addEventListener('click', e => {
+            e.preventDefault();
+            logout();
+        });
+
+        // ==================== KHỞI ĐỘNG ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cần thêm thư viện SweetAlert2 cho các hàm Swal.fire hoạt động
+            // checkAuthentication(); 
+        });
+    </script>
+</body>
+</html>

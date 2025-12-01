@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài chính cá nhân</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <link rel="stylesheet" href="nhanvien_trangchu.css">
+ <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f6f9; margin:0; color:#333; }
+    .container { max-width: 1100px; margin: 40px auto; padding: 20px; }
+    h1 { color: #e67e22; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
+    .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s; }
+    .card:hover { transform: translateY(-10px); }
+    .card i { font-size: 50px; margin-bottom: 20px; }
+    .saving { color: #27ae60; }
+    .loan { color: #e74c3c; }
+    .invest { color: #f1c40f; }
+    .budget { color: #3498db; }
+  </style>
+</head>
+<body>
+
+    <!-- Phần chung -->
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Nhân Viên</h2>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="nhanvien_trangchu.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                <li><a href="profile_nhanvien.html"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                <li><a href="nhanvien_chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                <li class="active"><a href="nhanvien_thoigianlamviec.html"><i class="fas fa-clock"></i> <span>Thời gian làm việc</span></a></li>
+                <li><a href="calendar.html"><i class="fas fa-calendar-day"></i> <span>Lịch làm việc</span></a></li>
+                <li><a href="salary.html"><i class="fas fa-file-invoice-dollar"></i> <span>Lương & Phúc lợi</span></a></li>
+                <li><a href="finance.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính cá nhân</span></a></li>
+                <li><a href="#" id="logout-btn" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+  <div class="container">
+    <h1><i class="fas fa-piggy-bank"></i> Tài chính cá nhân</h1>
+    <p style="text-align:center; font-size:18px;">Quản lý tài chính hiệu quả cùng các công cụ hỗ trợ từ công ty</p>
+
+    <div class="grid">
+      <div class="card">
+        <i class="fas fa-coins saving"></i>
+        <h3>Quỹ tiết kiệm nội bộ</h3>
+        <p>Lãi suất 7.5%/năm<br>Không phí quản lý</p>
+        <button style="margin-top:15px; padding:10px 20px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer;">Đăng ký ngay</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-hand-holding-usd loan"></i>
+        <h3>Vay ưu đãi nhân viên</h3>
+        <p>Lãi suất chỉ từ 0.6%/tháng<br>Hạn mức tối đa 100 triệu</p>
+        <button style="margin-top:15px; padding:10px 20px; background:#e74c3c; color:white; border:none; border-radius:5px; cursor:pointer;">Xem chi tiết</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-chart-line invest"></i>
+        <h3>Đầu tư quỹ công ty</h3>
+        <p>Lợi nhuận trung bình 12%/năm<br>Đầu tư từ 5 triệu</p>
+        <button style="margin-top:15px; padding:10px 20px; background:#f1c40f; color:white; border:none; border-radius:5px; cursor:pointer;">Tham gia</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-calculator budget"></i>
+        <h3>Công cụ lập ngân sách</h3>
+        <p>Theo dõi chi tiêu cá nhân<br>Biểu đồ trực quan</p>
+        <button style="margin-top:15px; padding:10px 20px; background:#3498db; color:white; border:none; border-radius:5px; cursor:pointer;">Truy cập công cụ</button>
+      </div>
+    </div>
+  </div>
+  <script> 
+   // ==================== KIỂM TRA ĐĂNG NHẬP & THÔNG TIN USER ====================
+        let currentUser = null;
+
+        function checkAuthentication() {
+            const userData = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const token = localStorage.getItem('session_token');
+
+            if (!userData || !token) {
+                Swal.fire('Chưa đăng nhập', 'Vui lòng đăng nhập để tiếp tục', 'warning').then(() => {
+                    window.location.href = 'login.html';
+                });
+                return false;
+            }
+
+            // Chỉ cho nhân viên truy cập
+            const allowedRoles = ['employee', 'nhanvien', 'staff'];
+            if (!allowedRoles.includes(userData.role)) {
+                window.location.href = 'qlns.html'; // hoặc trang quản lý
+                return false;
+            }
+
+            currentUser = userData;
+            updateUserInfo();
+            return true;
+        }
+
+        function updateUserInfo() {
+            if (!currentUser) return;
+
+            // ... (Phần cập nhật thông tin User trên Sidebar nếu có)
+            const userNameEl = document.getElementById('user-name');
+            const userPositionEl = document.getElementById('user-position');
+            const userAvatarEl = document.getElementById('user-avatar');
+
+            // Giả định có các element này trong nhanvien_trangchu.html
+            const fullName = currentUser.full_name || currentUser.name || currentUser.username || 'Nhân viên';
+            if(userNameEl) userNameEl.textContent = fullName;
+
+            const roleDisplay = {
+                'employee': 'Nhân viên', 'nhanvien': 'Nhân viên', 'staff': 'Nhân viên'
+            };
+            if(userPositionEl) userPositionEl.textContent = roleDisplay[currentUser.role] || 'Nhân viên';
+
+            // Avatar
+            if (userAvatarEl) {
+                if (currentUser.avatar_url || currentUser.picture) {
+                    userAvatarEl.innerHTML = `<img src="${currentUser.avatar_url || currentUser.picture}" alt="Avatar">`;
+                } else {
+                    const initials = fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    userAvatarEl.textContent = initials;
+                }
+            }
+        }
+        // ==================== ĐĂNG XUẤT ====================
+        async function logout() {
+            const confirmResult = await Swal.fire({
+                title: 'Xác nhận đăng xuất',
+                text: 'Bạn có chắc chắn muốn đăng xuất?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Đăng xuất',
+                cancelButtonText: 'Hủy'
+            });
+
+            if (!confirmResult.isConfirmed) return;
+
+            Swal.fire({ title: 'Đang đăng xuất...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            const sessionToken = localStorage.getItem('session_token');
+            if (sessionToken) {
+                try {
+                    // Giả sử API logout nằm ở đây
+                    await fetch('http://localhost/unitop-php/logout.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session_token: sessionToken })
+                    });
+                } catch (e) { console.warn('Logout API lỗi (vẫn đăng xuất client)', e); }
+            }
+
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('session_token');
+
+            Swal.fire({ icon: 'success', title: 'Đăng xuất thành công!', timer: 1500, showConfirmButton: false })
+                .then(() => window.location.href = 'login.html');
+        }
+
+        // Gắn sự kiện logout
+        document.getElementById('logout-btn')?.addEventListener('click', e => {
+            e.preventDefault();
+            logout();
+        });
+
+        // ==================== KHỞI ĐỘNG ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cần thêm thư viện SweetAlert2 cho các hàm Swal.fire hoạt động
+            // checkAuthentication(); 
+        });
+    </script>
+    
+</body>
+</html>
