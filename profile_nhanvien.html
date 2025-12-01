@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân - Hệ thống quản lý nhân viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="nhanvien_trangchu.css">
+    <link rel="stylesheet" href="profile_NV.css">
+</head>
+
+<body>
+ <!-- PHẦN CHUNG -->
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Nhân Viên</h2>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="nhanvien_trangchu.html"><i class="fas fa-home"></i> <span>Trang
+                            chủ</span></a></li>
+                <li><a href="profile_nhanvien.html"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+
+                <li><a href="nhanvien_chamcong.html"><i class="fas fa-calendar-alt"></i> <span>Chấm công</span></a></li>
+                <li><a href="nhanvien_thoigianlamviec.html"><i class="fas fa-clock"></i> <span>Thời gian làm việc</span></a></li>
+
+
+                <li><a href="calendar.html"><i class="fas fa-calendar-day"></i> <span>Lịch làm việc</span></a></li>
+                <li><a href="salary.html"><i class="fas fa-file-invoice-dollar"></i> <span>Lương & Phúc lợi</span></a></li>
+                <li><a href="finance.html"><i class="fas fa-piggy-bank"></i> <span>Tài chính cá nhân</span></a></li>
+                <li>
+                    <a href="#" id="logout-btn" title="Đăng xuất">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Thông tin cá nhân</h1>
+            <div class="user-info">
+                <img src="https://i.pravatar.cc/150?img=12" alt="User Avatar">
+                <span>Nguyễn Văn A</span>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://i.pravatar.cc/300?img=12" alt="Profile Avatar">
+                    </div>
+                    <div class="profile-info">
+                        <h2>Nguyễn Văn A</h2>
+                        <p>Nhân viên phát triển phần mềm</p>
+                        <span class="status-badge">Đang làm việc</span>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="detail-group">
+                        <label>Mã nhân viên</label>
+                        <p>NV-2023-001</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Phòng ban</label>
+                        <p>Phát triển sản phẩm</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Vị trí</label>
+                        <p>Lập trình viên Full-stack</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Ngày vào làm</label>
+                        <p>15/03/2021</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Email</label>
+                        <p>nguyenvana@company.com</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Số điện thoại</label>
+                        <p>+84 123 456 789</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Địa chỉ</label>
+                        <p>123 Đường ABC, Quận 1, TP.HCM</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Ngày sinh</label>
+                        <p>20/05/1995</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Giới tính</label>
+                        <p>Nam</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Số CMND/CCCD</label>
+                        <p>012345678901</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Ngày cấp</label>
+                        <p>15/06/2015</p>
+                    </div>
+                    <div class="detail-group">
+                        <label>Nơi cấp</label>
+                        <p>TP.HCM</p>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn btn-outline">Chỉnh sửa thông tin</button>
+                    <button class="btn btn-primary">Cập nhật ảnh đại diện</button>
+                </div>
+            </div>
+
+            <div class="additional-info">
+                <div class="info-section">
+                    <h3>Kỹ năng</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>PHP</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>React</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Thông tin liên hệ khẩn cấp</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <strong>Nguyễn Thị B</strong>
+                            <p>Vợ - 0987654321</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <strong>Nguyễn Văn C</strong>
+                            <p>Cha - 0912345678</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Thống kê</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <strong>2 năm 8 tháng</strong>
+                            <p>Thời gian làm việc</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-award"></i>
+                        <div>
+                            <strong>5</strong>
+                            <p>Dự án đã hoàn thành</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="profile_NV.js">
+        
+
+    </script>
+    
+</body>
+
+</html>
